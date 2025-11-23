@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raw Input từ Form Khảo Sát (Set 2)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #e91e63 0%, #c2185b 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .header p {
+            font-size: 14px;
+            opacity: 0.95;
+        }
+        
+        .tabs {
+            display: flex;
+            background: #f5f5f5;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .tab {
+            flex: 1;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+        }
+        
+        .tab:hover {
+            background: #eeeeee;
+        }
+        
+        .tab.active {
+            background: white;
+            color: #e91e63;
+            border-bottom: 3px solid #e91e63;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .note-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin-bottom: 25px;
+            border-radius: 5px;
+        }
+        
+        .interview-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 2px solid #e91e63;
+        }
+        
+        .interview-header {
+            background: #e91e63;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: inline-block;
+        }
+        
+        .concern-box {
+            background: #fce4ec;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .concern-box h3 {
+            color: #c2185b;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        .hope-box {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .hope-box h3 {
+            color: #388e3c;
+            font-size: 14px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            resize: vertical;
+            min-height: 60px;
+            transition: border-color 0.3s;
+        }
+        
+        textarea:focus {
+            outline: none;
+            border-color: #e91e63;
+        }
+        
+        .concern-box textarea {
+            background: white;
+        }
+        
+        .hope-box textarea {
+            background: white;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .btn-save {
+            background: linear-gradient(135deg, #4caf50 0%, #388e3c 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.4);
+        }
+        
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.6);
+        }
+        
+        .btn-export {
+            background: linear-gradient(135deg, #2196f3 0%, #1976d2 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+        }
+        
+        .btn-export:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(33, 150, 243, 0.6);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📋 Raw Input từ Form Khảo Sát (Set 2)</h1>
+            <p>Cuộc đối thoại: Tổng kết Hiệu quả Công việc</p>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active">KHÓ KHĂN KHI PHẢN HỒI</div>
+            <div class="tab">GIỜ ĐỒNG LỤC NHÂN VIÊN</div>
+            <div class="tab">KỸ NĂNG FEEDBACK</div>
+        </div>
+        
+        <div class="content">
+            <div class="note-box">
+                <strong>📌 Lưu ý:</strong> Nội dung bên dưới là nguyên văn câu trả lời của người tham gia, giữ nguyên câu chữ như trong form.
+            </div>
+            
+            <div class="interview-section">
+                <div class="interview-header">PHỎNG VẤN LỐI 1</div>
+                <div class="concern-box">
+                    <h3>🚨 Khó khăn / Bận khoăn</h3>
+                    <textarea id="concern1">- Đôi trường hợp rõ được điểm cần cải thiện
+- Tuyên bố đúng kết quả nhưng trên tình thần xấu, dụng</textarea>
+                </div>
+                <div class="hope-box">
+                    <h3>💡 Gợi ý / Mong đợi hỗ trợ</h3>
+                    <textarea id="hope1">thẳng thắn</textarea>
+                </div>
+            </div>
+            
+            <div class="interview-section">
+                <div class="interview-header">PHỎNG VẤN LỐI 2</div>
+                <div class="concern-box">
+                    <h3>🚨 Khó khăn / Bận khoăn</h3>
+                    <textarea id="concern2">Ngại phản hồi thẳng thắn, và sợ lý lỡ vọng ghía quan lý nhân viên</textarea>
+                </div>
+                <div class="hope-box">
+                    <h3>💡 Gợi ý / Mong đợi hỗ trợ</h3>
+                    <textarea id="hope2">Lắng nghe tợ ý kiến nhân viên</textarea>
+                </div>
+            </div>
+            
+            <div class="interview-section">
+                <div class="interview-header">PHỎNG VẤN LỐI 3</div>
+                <div class="concern-box">
+                    <h3>🚨 Khó khăn / Bận khoăn</h3>
+                    <textarea id="concern3">Tăng động lực chia sẻ kết quả không tốt, thực đẫy, nhận viên gặp ỷ cho quản lý</textarea>
+                </div>
+                <div class="hope-box">
+                    <h3>💡 Gợi ý / Mong đợi hỗ trợ</h3>
+                    <textarea id="hope3">Thời gian/ không gian phù hợp</textarea>
+                </div>
+            </div>
+            
+            <div class="interview-section">
+                <div class="interview-header">PHỎNG VẤN LỐI 4</div>
+                <div class="concern-box">
+                    <h3>🚨 Khó khăn / Bận khoăn</h3>
+                    <textarea id="concern4">Giờ được quan điềm phản hồi ho mang tính xây dựng, những thắn, giúp bạn cải thiện những đỉ tính về đễ nhống ban nhân viền công hướng nội; nhưng nhất, thấy cần thiết là cơ performance chua tởi tơ cám thấy, lệ lựum hộộc tể, không được có lọạm định.</textarea>
+                </div>
+                <div class="hope-box">
+                    <h3>💡 Gợi ý / Mong đợi hỗ trợ</h3>
+                    <textarea id="hope4">Hiểu rính cách tông nhận viên để tỉnh hoạt động xử</textarea>
+                </div>
+            </div>
+            
+            <div class="interview-section">
+                <div class="interview-header">PHỎNG VẤN LỐI 5</div>
+                <div class="concern-box">
+                    <h3>🚨 Khó khăn / Bận khoăn</h3>
+                    <textarea id="concern5">Làm review cho tổng bạn in detail để take tima.</textarea>
+                </div>
+                <div class="hope-box">
+                    <h3>💡 Gợi ý / Mong đợi hỗ trợ</h3>
+                    <textarea id="hope5">Trân thành, khen chi tiết, theo hướng thử nổi để improve các điềm chua tót.</textarea>
+                </div>
+            </div>
+            
+            <div class="action-buttons">
+                <button class="btn btn-save" onclick="saveData()">💾 Lưu Thay Đổi</button>
+                <button class="btn btn-export" onclick="exportData()">📤 Xuất Dữ Liệu</button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function saveData() {
+            const data = {
+                interview1: {
+                    concern: document.getElementById('concern1').value,
+                    hope: document.getElementById('hope1').value
+                },
+                interview2: {
+                    concern: document.getElementById('concern2').value,
+                    hope: document.getElementById('hope2').value
+                },
+                interview3: {
+                    concern: document.getElementById('concern3').value,
+                    hope: document.getElementById('hope3').value
+                },
+                interview4: {
+                    concern: document.getElementById('concern4').value,
+                    hope: document.getElementById('hope4').value
+                },
+                interview5: {
+                    concern: document.getElementById('concern5').value,
+                    hope: document.getElementById('hope5').value
+                }
+            };
+            
+            alert('✅ Dữ liệu đã được lưu trong phiên làm việc này!');
+            console.log('Saved data:', data);
+        }
+        
+        function exportData() {
+            const data = {
+                title: "Raw Input từ Form Khảo Sát (Set 2)",
+                topic: "Cuộc đối thoại: Tổng kết Hiệu quả Công việc",
+                interviews: [
+                    {
+                        id: 1,
+                        concern: document.getElementById('concern1').value,
+                        hope: document.getElementById('hope1').value
+                    },
+                    {
+                        id: 2,
+                        concern: document.getElementById('concern2').value,
+                        hope: document.getElementById('hope2').value
+                    },
+                    {
+                        id: 3,
+                        concern: document.getElementById('concern3').value,
+                        hope: document.getElementById('hope3').value
+                    },
+                    {
+                        id: 4,
+                        concern: document.getElementById('concern4').value,
+                        hope: document.getElementById('hope4').value
+                    },
+                    {
+                        id: 5,
+                        concern: document.getElementById('concern5').value,
+                        hope: document.getElementById('hope5').value
+                    }
+                ]
+            };
+            
+            const jsonStr = JSON.stringify(data, null, 2);
+            const blob = new Blob([jsonStr], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'survey_set2_data.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+</body>
+</html>
